@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0] - 2026-10-02
+
+### Added
+
+- Regular expression tester with groups
+- Local JWT reader that shows the header and payload and does not verify the signature
+- Five-field cron calculator for the next UTC runs
+
 ## [0.3.0] - 2026-10-02
 
 ### Added
