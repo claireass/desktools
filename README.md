@@ -56,7 +56,7 @@ GitHub release ve imzalama bu sürümde yoktur.
 
 ## Update System
 
-Depo adresi [github.com/claireass/desktools](https://github.com/claireass/desktools). Masaüstü pencerede “Şimdi denetle”, `latest.json` kaydını imzayla doğrular. Kayıttaki sürüm daha yeniyse kurulum dosyasını indirir ve kurar. Tarayıcı oturumu yalnızca sürümü bildirir, indirmez. Özel imza anahtarı depoda yoktur.
+Depo adresi [github.com/claireass/desktools](https://github.com/claireass/desktools). Masaüstü pencerede “Şimdi denetle”, `latest.json` kaydını imzayla doğrular. Kayıttaki sürüm daha yeniyse indirmeden önce sorar. Onaydan sonra kurulum dosyasını indirir ve kurar. Tarayıcı oturumu yalnızca sürümü bildirir, indirmez. Özel imza anahtarı depoda yoktur.
 
 ## Architecture
 

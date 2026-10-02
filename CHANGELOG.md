@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.1] - 2026-10-02
+
+### Changed
+
+- Update checks ask before downloading and installing a newer release
+
 ## [0.2.0] - 2026-10-02
 
 ### Added

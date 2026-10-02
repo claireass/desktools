@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { appConfig } from "@/constants/appConfig";
 import { Button } from "@/components/ui/Button";
+import { Dialog } from "@/components/ui/Dialog";
 import { useI18n } from "@/hooks/useI18n";
-import { checkForAppUpdate } from "@/services/desktopUpdate";
+import {
+  checkForAppUpdate,
+  dismissPendingUpdate,
+  installPendingUpdate,
+} from "@/services/desktopUpdate";
 import { describeUpdatePreference } from "@/services/desktopPreferences";
 import { githubRepositoryUrl, type ReleaseLookup } from "@/services/githubRelease";
+import { isTauri } from "@/services/platform";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { locales, themes, type Locale, type Theme } from "@/types/settings";
 
@@ -24,7 +30,13 @@ export function SettingsPage() {
   const repositoryUrl =
     githubRepositoryUrl(appConfig.repositoryOwner, appConfig.repositoryName) ?? "";
   const [checking, setChecking] = useState(false);
+  const [installing, setInstalling] = useState(false);
   const [lookup, setLookup] = useState<ReleaseLookup | null>(null);
+  const offerVersion = lookup?.status === "available" && isTauri() ? lookup.version : null;
+  const declineUpdate = useCallback(() => {
+    void dismissPendingUpdate();
+    setLookup(null);
+  }, []);
 
   return (
     <section className="max-w-xl">
@@ -120,10 +132,37 @@ export function SettingsPage() {
             >
               {checking ? t("settings.updates.checking") : t("settings.updates.check")}
             </Button>
-            {lookup ? <ReleaseResult lookup={lookup} /> : null}
+            {lookup && !offerVersion ? <ReleaseResult lookup={lookup} /> : null}
           </div>
         ) : null}
       </fieldset>
+      <Dialog
+        open={offerVersion !== null}
+        title={t("settings.updates.askTitle")}
+        onClose={declineUpdate}
+        closeOnEscape={!installing}
+        closeOnBackdrop={!installing}
+      >
+        <p className="text-sm text-muted">
+          {t("settings.updates.ask")} {offerVersion ? `v${offerVersion}` : ""}
+        </p>
+        <div className="mt-5 flex justify-end gap-2">
+          <Button variant="secondary" disabled={installing} onClick={declineUpdate}>
+            {t("settings.updates.later")}
+          </Button>
+          <Button
+            disabled={installing}
+            onClick={() => {
+              setInstalling(true);
+              void installPendingUpdate()
+                .then(setLookup)
+                .finally(() => setInstalling(false));
+            }}
+          >
+            {installing ? t("settings.updates.downloading") : t("settings.updates.download")}
+          </Button>
+        </div>
+      </Dialog>
     </section>
   );
 }
