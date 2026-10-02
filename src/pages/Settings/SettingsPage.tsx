@@ -2,12 +2,9 @@ import { useState } from "react";
 import { appConfig } from "@/constants/appConfig";
 import { Button } from "@/components/ui/Button";
 import { useI18n } from "@/hooks/useI18n";
+import { checkForAppUpdate } from "@/services/desktopUpdate";
 import { describeUpdatePreference } from "@/services/desktopPreferences";
-import {
-  githubRepositoryUrl,
-  lookupLatestRelease,
-  type ReleaseLookup,
-} from "@/services/githubRelease";
+import { githubRepositoryUrl, type ReleaseLookup } from "@/services/githubRelease";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { locales, themes, type Locale, type Theme } from "@/types/settings";
 
@@ -116,11 +113,7 @@ export function SettingsPage() {
               onClick={() => {
                 setChecking(true);
                 setLookup(null);
-                void lookupLatestRelease(
-                  appConfig.version,
-                  appConfig.repositoryOwner,
-                  appConfig.repositoryName,
-                )
+                void checkForAppUpdate()
                   .then(setLookup)
                   .finally(() => setChecking(false));
               }}
@@ -140,7 +133,9 @@ function ReleaseResult({ lookup }: { lookup: ReleaseLookup }) {
   const summary =
     lookup.status === "available"
       ? `${t("settings.updates.available")} v${lookup.version}`
-      : t(`settings.updates.${lookup.status}`);
+      : lookup.status === "installed"
+        ? `${t("settings.updates.installed")} v${lookup.version}`
+        : t(`settings.updates.${lookup.status}`);
 
   return (
     <div className="text-sm" role="status">

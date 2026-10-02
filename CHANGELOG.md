@@ -17,4 +17,4 @@
 - Case converter, line tools, percentage, unit converter, and date calculator
 - Saved startup, tray, and update preferences that do not start Windows login, a tray icon, or update downloads yet
 - Unsigned NSIS installer for the current user machine (`DeskTools_0.1.0_x64-setup.exe`)
-- GitHub owner `claireass` and a release lookup that does not download an installer
+- GitHub owner `claireass` and a signed updater that downloads a newer release in the desktop app

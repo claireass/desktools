@@ -8,6 +8,8 @@
     "core:window:allow-set-theme",
     "opener:default",
     "store:default",
-    "log:default"
+    "log:default",
+    "updater:default",
+    "process:allow-restart"
   ]
 }

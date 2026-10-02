@@ -61,7 +61,7 @@ export const messages = {
     "settings.language.en": "English",
     "settings.desktop": "Masaüstü",
     "settings.desktop.note":
-      "Bu tercihler kaydedilir. Windows başlangıcı, sistem tepsisi ve güncelleme indirmesi bu sürümde çalışmaz.",
+      "Başlangıç ve tepsi tercihleri kaydedilir; Windows bunları bu sürümde uygulamaz. Daha yeni imzalı bir sürüm varsa masaüstü uygulama onu indirir.",
     "settings.launchAtStartup": "Windows açılınca başlat",
     "settings.closeToTray": "Kapatınca tepside kalsın",
     "settings.checkForUpdates": "Güncellemeleri denetle",
@@ -69,7 +69,8 @@ export const messages = {
     "settings.updates.off": "Güncelleme denetimi kapalı.",
     "settings.updates.noRepository": "Depo sahibi yok. Denetim adresi üretilemez.",
     "settings.updates.inactive":
-      "Denetim adresi hazır. İndirme ve kurulum bu sürümde yapılmaz.",
+      "Denetim adresi hazır. İndirme yalnızca masaüstü pencerede, daha yeni bir sürüm varsa yapılır.",
+    "settings.updates.installed": "Güncelleme kuruldu:",
     "settings.updates.check": "Şimdi denetle",
     "settings.updates.checking": "Denetleniyor...",
     "settings.updates.upToDate": "Yeni sürüm yok.",
@@ -450,7 +451,7 @@ export const messages = {
     "settings.language.en": "English",
     "settings.desktop": "Desktop",
     "settings.desktop.note":
-      "These choices are saved. Starting with Windows, the system tray, and update downloads do not run in this version.",
+      "Startup and tray choices are saved. Windows does not apply them in this version. The desktop app downloads a newer signed release when one exists.",
     "settings.launchAtStartup": "Start when Windows starts",
     "settings.closeToTray": "Stay in the tray when closed",
     "settings.checkForUpdates": "Check for updates",
@@ -459,7 +460,8 @@ export const messages = {
     "settings.updates.noRepository":
       "No repository owner is set. A check address cannot be created.",
     "settings.updates.inactive":
-      "The check address is ready. Downloads and installation do not run in this version.",
+      "The check address is ready. A download runs only in the desktop window, and only when a newer release exists.",
+    "settings.updates.installed": "The update was installed:",
     "settings.updates.check": "Check now",
     "settings.updates.checking": "Checking...",
     "settings.updates.upToDate": "No newer release.",

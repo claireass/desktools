@@ -29,6 +29,7 @@
   },
   "bundle": {
     "active": true,
+    "createUpdaterArtifacts": true,
     "targets": ["nsis"],
     "icon": [
       "icons/32x32.png",
@@ -41,6 +42,17 @@
       "nsis": {
         "installMode": "perMachine",
         "languages": ["Turkish", "English"]
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDU2RjU3RTI3NUVFOUQyMjMKUldRajB1bGVKMzcxVm9vZGoyck04K2tSUWp1UU04T0NmU2hteUVpTWxiYm5qdXV0MG8vUmZTYkoK",
+      "endpoints": [
+        "https://github.com/claireass/desktools/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
       }
     }
   }

@@ -5,6 +5,7 @@ const GITHUB_NAME = /^[A-Za-z0-9_.-]+$/;
 export type ReleaseLookup =
   | { status: "upToDate" }
   | { status: "available"; version: string }
+  | { status: "installed"; version: string }
   | { status: "missing" }
   | { status: "invalid" }
   | { status: "failed"; detail: string };
