@@ -61,7 +61,9 @@ export const messages = {
     "settings.language.en": "English",
     "settings.desktop": "Masaüstü",
     "settings.desktop.note":
-      "Başlangıç ve tepsi tercihleri kaydedilir; Windows bunları bu sürümde uygulamaz. Yeni sürüm bulunursa indirmeden önce sorulur.",
+      "Masaüstü pencerede Windows açılışı ve tepsi uygulanır. Güncelleme denetimi açıksa uygulama açılınca bakar ve indirmeden önce sorar.",
+    "tray.show": "Göster",
+    "tray.quit": "Çıkış",
     "settings.launchAtStartup": "Windows açılınca başlat",
     "settings.closeToTray": "Kapatınca tepside kalsın",
     "settings.checkForUpdates": "Güncellemeleri denetle",
@@ -541,7 +543,9 @@ export const messages = {
     "settings.language.en": "English",
     "settings.desktop": "Desktop",
     "settings.desktop.note":
-      "Startup and tray choices are saved. Windows does not apply them in this version. A newer release asks before it is downloaded.",
+      "In the desktop window, Windows startup and the tray icon are applied. When update checking is on, the app looks at startup and asks before downloading.",
+    "tray.show": "Show",
+    "tray.quit": "Quit",
     "settings.launchAtStartup": "Start when Windows starts",
     "settings.closeToTray": "Stay in the tray when closed",
     "settings.checkForUpdates": "Check for updates",

@@ -12,7 +12,7 @@ Güncel davranış bu dosyadadır. `README.md` içindeki bazı kurulum ve sürü
 
 DeskTools, Windows 10/11 x64 için çevrimdışı çalışabilen bir masaüstü araç kutusudur. Tek pencerede dosya, resim, PDF, geliştirici, internet, sistem, metin ve hesap araçlarını toplar. Araçlar birbirinin durumuna bağlanmaz. Yeni bir araç, kendi klasörüne ve tek bir kayıt listesine eklenir.
 
-Ürün adı DeskTools. Paket adı `desktools`. Tauri kimliği `com.desktools.desktop`. Kaynak deposu `https://github.com/claireass/desktools`, dal `main`. Sürüm bu yazıldığı sırada **0.5.0**.
+Ürün adı DeskTools. Paket adı `desktools`. Tauri kimliği `com.desktools.desktop`. Kaynak deposu `https://github.com/claireass/desktools`, dal `main`. Sürüm bu yazıldığı sırada **0.6.0**.
 
 Kurulu uygulama Başlat menüsündeki DeskTools’tur. `npm run tauri dev` ile açılan pencere geliştirme penceresidir. Güncelleme denemesi kurulu uygulamadan yapılır. Geliştirme penceresi zaten kaynak koddaki sürümü çalıştırdığı için kendisine güncelleme görmez.
 
@@ -146,9 +146,9 @@ Favoriler araç id dizisidir. Son kullanılanlar en fazla 30 kayıttır.
 
 Ayar alanları: `theme`, `locale`, `sidebarCollapsed`, `hasCompletedOnboarding`, `launchAtStartup`, `closeToTray`, `checkForUpdates`. Son üçü varsayılan olarak kapalıdır.
 
-`launchAtStartup` ve `closeToTray` yalnızca kaydedilir. Windows açılış kaydı oluşturulmaz ve tepsi simgesi yoktur. Arayüz bunu açıkça söyler.
+`launchAtStartup` açıkken masaüstü uygulama, geçerli kullanıcının Windows açılış kaydını yazar. Kapatılınca o kayıt silinir. `closeToTray` açıkken pencere kapanmak yerine gizlenir ve tepsi simgesi kalır. Tepsi menüsünde Göster ve Çıkış vardır. Çıkış pencereyi kapatır. Bu iki davranış tarayıcı oturumunda uygulanmaz.
 
-`checkForUpdates` açıkken Ayarlar sayfasında “Şimdi denetle” düğmesi görünür. Uygulama açılışta kendi kendine güncelleme aramaz.
+`checkForUpdates` açıkken masaüstü uygulama ayarlar yüklendikten sonra bir kez bakar. Yeni sürüm varsa indirmeden önce sorar. Ayarlar sayfasındaki “Şimdi denetle” de aynı soruyu kullanır. Uygulama, tercih kapalıyken açılışta bakmaz.
 
 Tarayıcı oturumunda aynı dosyalar bellek haritasındadır. Kalıcı değildir.
 
@@ -166,7 +166,7 @@ Kayıt adresi:
 
 `https://github.com/claireass/desktools/releases/latest/download/latest.json`
 
-`latest.json` alanı `version` öneksiz sürümdür, örneğin `0.5.0`. Platform anahtarı `windows-x86_64` olur. `signature` kurulum dosyasının `.sig` içeriğidir. `url`, o sürümün `DeskTools_<sürüm>_x64-setup.exe` indirme adresidir. GitHub “latest”, en son yayımlanan sürümdür.
+`latest.json` alanı `version` öneksiz sürümdür, örneğin `0.6.0`. Platform anahtarı `windows-x86_64` olur. `signature` kurulum dosyasının `.sig` içeriğidir. `url`, o sürümün `DeskTools_<sürüm>_x64-setup.exe` indirme adresidir. GitHub “latest”, en son yayımlanan sürümdür.
 
 İmza, `tauri.conf.json` içindeki açık anahtarla doğrulanır. Özel anahtar depoda, sohbette ve GitHub’da yoktur. İlk makinede kullanıcı profilindeki `.tauri` klasöründedir. Bu anahtar kaybolursa kurulmuş kopyalar yeni sürüme geçemez. Anahtar dosyası repoya konmaz.
 
@@ -178,7 +178,7 @@ Tarayıcı oturumu GitHub API ile sürümü okur ve indirmez. İndirme düğmesi
 
 ## Masaüstü kabuğu
 
-`src-tauri/src/lib.rs` eklentileri kurar: opener, store, process, updater, log. Tek Rust komutu `get_app_info` ad, sürüm, işletim sistemi ve mimari döndürür.
+`src-tauri/src/lib.rs` eklentileri kurar: opener, store, process, updater, autostart, log. Tek Rust komutu `get_app_info` ad, sürüm, işletim sistemi ve mimari döndürür.
 
 Pencere etiketi `main`, süsleri açık, en az 960×640, varsayılan 1100×720.
 

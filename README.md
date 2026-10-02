@@ -19,7 +19,7 @@ Mimari, araçlar ve güncelleme akışı [ARCHITECTURE.md](ARCHITECTURE.md) (Tü
 - URL ayrıştırma, IPv4 alt ağ hesabı ve HTTP durum kodu
 - Pano ve oturum sistem bilgisi
 - Harf dönüştürme, satır işlemleri, yüzde, birim ve tarih hesabı
-- Başlangıç, tepsi ve güncelleme tercihleri kaydedilir; bu sürümde uygulanmaz
+- Windows açılışı, tepsi ve açılışta güncelleme denetimi masaüstü pencerede uygulanır
 
 ## Installation
 
@@ -29,7 +29,7 @@ Yerel kurulum dosyası `npm run tauri build` ile üretilir:
 
 Yayınlanan kurulum [GitHub Releases](https://github.com/claireass/desktools/releases) içindedir.
 
-Kurulum tüm kullanıcılar içindir (`Program Files`), Başlat menüsüne kısayol ekler ve kaldırıcı oluşturur. Yönetici onayı ister. Bu dosya imzalı değildir ve GitHub Release olarak yayımlanmamıştır.
+Kurulum tüm kullanıcılar içindir (`Program Files`), Başlat menüsüne kısayol ekler ve kaldırıcı oluşturur. Yönetici onayı isteyebilir. Yayınlanan kurulum dosyası imzalanır. Özel imza anahtarı depoda yoktur.
 
 ## Development
 
@@ -54,11 +54,11 @@ npm run tauri build
 
 Sürüm `package.json`, `src-tauri/tauri.conf.json` ve `src-tauri/Cargo.toml` içinde aynı olmalıdır. `npm run check:version` farklıysa başarısız olur.
 
-GitHub release ve imzalama bu sürümde yoktur.
+Yayın, imzalı NSIS kurulumunu, `.sig` dosyasını ve `latest.json` kaydını GitHub Release olarak yükler.
 
 ## Update System
 
-Depo adresi [github.com/claireass/desktools](https://github.com/claireass/desktools). Masaüstü pencerede “Şimdi denetle”, `latest.json` kaydını imzayla doğrular. Kayıttaki sürüm daha yeniyse indirmeden önce sorar. Onaydan sonra kurulum dosyasını indirir ve kurar. Tarayıcı oturumu yalnızca sürümü bildirir, indirmez. Özel imza anahtarı depoda yoktur.
+Depo adresi [github.com/claireass/desktools](https://github.com/claireass/desktools). Güncelleme denetimi açıksa masaüstü uygulama açılınca `latest.json` kaydını imzayla doğrular. “Şimdi denetle” de aynı kaydı okur. Kayıttaki sürüm daha yeniyse indirmeden önce sorar. Onaydan sonra kurulum dosyasını indirir ve kurar. Tarayıcı oturumu yalnızca sürümü bildirir, indirmez. Özel imza anahtarı depoda yoktur.
 
 ## Architecture
 

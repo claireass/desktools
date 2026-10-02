@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0] - 2026-10-02
+
+### Added
+
+- Windows startup entry when the desktop preference is on
+- Tray icon that keeps the window open when close-to-tray is on
+- One update check after startup when update checking is on, still asking before download
+
 ## [0.5.0] - 2026-10-02
 
 ### Added

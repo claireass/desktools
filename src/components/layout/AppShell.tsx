@@ -1,14 +1,18 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { ShellContext } from "@/components/shell/shellContext";
 import { Header } from "@/components/header/Header";
 import { Sidebar } from "@/components/sidebar/Sidebar";
+import { UpdateOffer } from "@/components/update/UpdateOffer";
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import { useI18n } from "@/hooks/useI18n";
-import { useSettingsStore } from "@/stores/settingsStore";
+import { applyCloseToTray, applyLaunchAtStartup } from "@/services/desktopSession";
+import { checkForAppUpdate } from "@/services/desktopUpdate";
 import { requestHydrate } from "@/services/userData";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { useUpdateOfferStore } from "@/stores/updateOfferStore";
 
 export function AppShell() {
   const { t } = useI18n();
@@ -18,10 +22,45 @@ export function AppShell() {
   const status = useSettingsStore((state) => state.status);
   const onboarded = useSettingsStore((state) => state.hasCompletedOnboarding);
   const completeOnboarding = useSettingsStore((state) => state.completeOnboarding);
+  const launchAtStartup = useSettingsStore((state) => state.launchAtStartup);
+  const closeToTray = useSettingsStore((state) => state.closeToTray);
+  const checkForUpdates = useSettingsStore((state) => state.checkForUpdates);
+  const locale = useSettingsStore((state) => state.locale);
+  const startupCheckStarted = useRef(false);
   const openSearch = useCallback(() => setSearchOpen(true), []);
   const closeSearch = useCallback(() => setSearchOpen(false), []);
   const ready = status.state === "ready" || status.state === "error";
   const showWelcome = status.state === "ready" && !onboarded;
+  const desktopReady = status.state === "ready" && status.mode === "desktop";
+
+  useEffect(() => {
+    if (!desktopReady) {
+      return;
+    }
+    void applyLaunchAtStartup(launchAtStartup);
+  }, [desktopReady, launchAtStartup]);
+
+  useEffect(() => {
+    if (!desktopReady) {
+      return;
+    }
+    void applyCloseToTray(closeToTray, { show: t("tray.show"), quit: t("tray.quit") });
+  }, [closeToTray, desktopReady, locale, t]);
+
+  useEffect(() => {
+    if (!desktopReady || startupCheckStarted.current) {
+      return;
+    }
+    startupCheckStarted.current = true;
+    if (!checkForUpdates) {
+      return;
+    }
+    void checkForAppUpdate().then((lookup) => {
+      if (lookup.status === "available") {
+        useUpdateOfferStore.getState().present(lookup);
+      }
+    });
+  }, [checkForUpdates, desktopReady]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -104,6 +143,7 @@ export function AppShell() {
         </div>
       </div>
       <GlobalSearch open={searchOpen && !showWelcome} onClose={closeSearch} />
+      <UpdateOffer />
       <Dialog
         open={showWelcome}
         title={t("welcome.title")}
