@@ -4,6 +4,8 @@ Bu dosya, projeyi başka bir bilgisayarda açan bir kişi veya yapay zeka içind
 
 Güncel davranış bu dosyadadır. `README.md` içindeki bazı kurulum ve sürüm cümleleri eskidir. Çelişki olursa bu dosya ve kaynak kod geçerlidir.
 
+İşleyiş veya mimari değişince bu dosya da aynı değişiklikle güncellenir. Yeni veya kalkan araç, rota, yetki, kayıt dosyası ve artık çalışan ya da duran bir adım buraya yazılır. Yalnızca üslup veya test değişikliği bu dosyayı gerektirmez.
+
 ## Ne olduğu
 
 DeskTools, Windows 10/11 x64 için çevrimdışı çalışabilen bir masaüstü araç kutusudur. Tek pencerede dosya, resim, PDF, geliştirici, internet, sistem, metin ve hesap araçlarını toplar. Araçlar birbirinin durumuna bağlanmaz. Yeni bir araç, kendi klasörüne ve tek bir kayıt listesine eklenir.
