@@ -211,4 +211,4 @@ A `.sig` file with the same name is created beside it. `latest.json` is not part
 
 Published installers are at `https://github.com/claireass/desktools/releases`.
 
-A license has not been chosen. There is no `LICENSE` file in the repository. Secrets, `.env`, and `src-tauri/target` are not committed.
+The license is the GNU General Public License v3.0. Secrets, `.env`, and `src-tauri/target` are not committed.

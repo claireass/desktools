@@ -211,4 +211,4 @@ Yanında aynı adda `.sig` dosyası oluşur. `latest.json` bu derlemenin parças
 
 Yayınlanan kurulumlar `https://github.com/claireass/desktools/releases` adresindedir.
 
-Lisans seçilmedi. Depoda `LICENSE` dosyası yoktur. Gizli anahtar, `.env` ve `src-tauri/target` repoya girmez.
+Lisans GNU General Public License v3.0 dosyasıdır. Gizli anahtar, `.env` ve `src-tauri/target` repoya girmez.

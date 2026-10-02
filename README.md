@@ -76,7 +76,7 @@ Araçlar birbirine bağlanmadan, kayıt listesine tek satırla eklenmelidir. Kul
 
 ## License
 
-Lisans henüz seçilmedi.
+Lisans [GNU General Public License v3.0](LICENSE).
 
 ## Ekran görüntüleri
 
