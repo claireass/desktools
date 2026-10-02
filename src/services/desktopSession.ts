@@ -4,7 +4,7 @@ import { useSettingsStore } from "@/stores/settingsStore";
 
 let trayReady = false;
 let quitting = false;
-let closeListening = false;
+let unlistenClose: (() => void) | null = null;
 
 export async function applyLaunchAtStartup(enabled: boolean): Promise<void> {
   if (!isTauri()) {
@@ -33,9 +33,9 @@ export async function applyCloseToTray(
     return;
   }
   try {
-    await ensureCloseListener();
     const { TrayIcon } = await import("@tauri-apps/api/tray");
     if (!enabled) {
+      await stopCloseListener();
       if (trayReady) {
         await TrayIcon.removeById("desktools");
         trayReady = false;
@@ -46,16 +46,18 @@ export async function applyCloseToTray(
     const existing = await TrayIcon.getById("desktools");
     if (existing) {
       await existing.setMenu(menu);
+      await existing.setShowMenuOnLeftClick(false);
       trayReady = true;
+      await ensureCloseListener();
       return;
     }
-    const { defaultWindowIcon } = await import("@tauri-apps/api/app");
-    const icon = await defaultWindowIcon();
-    await TrayIcon.new({
+    const icon = await windowIcon();
+    const tray = await TrayIcon.new({
       id: "desktools",
       tooltip: "DeskTools",
-      icon: icon ?? undefined,
+      icon,
       menu,
+      showMenuOnLeftClick: false,
       action: (event) => {
         const leftClick =
           event.type === "Click" && event.button === "Left" && event.buttonState === "Up";
@@ -64,7 +66,9 @@ export async function applyCloseToTray(
         }
       },
     });
+    await tray.setShowMenuOnLeftClick(false);
     trayReady = true;
+    await ensureCloseListener();
   } catch (error) {
     const detail = error instanceof Error ? error.message : "tray failed";
     await logError(`Tray icon failed: ${detail}`);
@@ -95,18 +99,40 @@ async function quitFromTray(): Promise<void> {
   await getCurrentWindow().destroy();
 }
 
+async function windowIcon() {
+  try {
+    const { defaultWindowIcon } = await import("@tauri-apps/api/app");
+    return (await defaultWindowIcon()) ?? undefined;
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "icon failed";
+    await logError(`Tray icon image failed: ${detail}`);
+    return undefined;
+  }
+}
+
+async function stopCloseListener(): Promise<void> {
+  unlistenClose?.();
+  unlistenClose = null;
+}
+
 async function ensureCloseListener(): Promise<void> {
-  if (closeListening) {
+  if (unlistenClose) {
     return;
   }
-  closeListening = true;
   const { getCurrentWindow } = await import("@tauri-apps/api/window");
   const window = getCurrentWindow();
-  await window.onCloseRequested((event) => {
-    if (quitting || !useSettingsStore.getState().closeToTray) {
+  unlistenClose = await window.onCloseRequested(async (event) => {
+    if (quitting || !useSettingsStore.getState().closeToTray || !trayReady) {
       return;
     }
     event.preventDefault();
-    void window.hide();
+    try {
+      await window.hide();
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : "hide failed";
+      await logError(`Hide to tray failed: ${detail}`);
+      quitting = true;
+      await window.destroy();
+    }
   });
 }

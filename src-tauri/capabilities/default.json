@@ -6,6 +6,12 @@
   "permissions": [
     "core:default",
     "core:window:allow-set-theme",
+    "core:window:allow-hide",
+    "core:window:allow-show",
+    "core:window:allow-unminimize",
+    "core:window:allow-set-focus",
+    "core:window:allow-destroy",
+    "core:app:allow-default-window-icon",
     {
       "identifier": "opener:allow-open-url",
       "allow": [{ "url": "https://github.com/claireass/desktools" }]

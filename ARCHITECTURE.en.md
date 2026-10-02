@@ -12,7 +12,7 @@ When the behavior or the architecture changes, update this file and the Turkish 
 
 DeskTools is an offline-capable desktop toolbox for Windows 10/11 x64. One window holds file, image, PDF, developer, internet, system, text, and calculator tools. Tools do not share each other's state. A new tool is added in its own folder and in one registry.
 
-The product name is DeskTools. The package name is `desktools`. The Tauri identifier is `com.desktools.desktop`. The source repository is `https://github.com/claireass/desktools`, branch `main`. The version at the time of this writing is **0.6.0**.
+The product name is DeskTools. The package name is `desktools`. The Tauri identifier is `com.desktools.desktop`. The source repository is `https://github.com/claireass/desktools`, branch `main`. The version at the time of this writing is **0.6.1**.
 
 The installed app is DeskTools in the Start menu. The window opened by `npm run tauri dev` is the development window. Test an update from the installed app. The development window already runs the version in the source tree, so it does not see an update for itself.
 
@@ -146,7 +146,7 @@ Favorites are an array of tool ids. Recent tools keep at most 30 entries.
 
 Settings fields: `theme`, `locale`, `sidebarCollapsed`, `hasCompletedOnboarding`, `launchAtStartup`, `closeToTray`, `checkForUpdates`. The last three default to off.
 
-When `launchAtStartup` is on, the desktop app writes the current user's Windows startup entry. Turning it off removes that entry. When `closeToTray` is on, closing the window hides it and leaves a tray icon. The tray menu has Show and Quit. Quit closes the window. Neither behavior runs in a browser session.
+When `launchAtStartup` is on, the desktop app writes the current user's Windows startup entry. Turning it off removes that entry. When `closeToTray` is on, the desktop app creates a tray icon. Once that icon exists, a close request hides the window. If the icon cannot be created, the window closes normally. The tray menu has Show and Quit. Quit destroys the window. Neither behavior runs in a browser session.
 
 When `checkForUpdates` is on, the desktop app looks once after settings load. A newer release still asks before download. The "Check now" button on Settings uses the same question. The app does not look at startup while the preference is off.
 
@@ -166,7 +166,7 @@ The record address is:
 
 `https://github.com/claireass/desktools/releases/latest/download/latest.json`
 
-The `version` field in `latest.json` has no `v` prefix, for example `0.6.0`. The platform key is `windows-x86_64`. `signature` is the contents of the installer's `.sig` file. `url` is the download address of that version's `DeskTools_<version>_x64-setup.exe`. GitHub "latest" is the most recently published release.
+The `version` field in `latest.json` has no `v` prefix, for example `0.6.1`. The platform key is `windows-x86_64`. `signature` is the contents of the installer's `.sig` file. `url` is the download address of that version's `DeskTools_<version>_x64-setup.exe`. GitHub "latest" is the most recently published release.
 
 The signature is verified with the public key in `tauri.conf.json`. The private key is not in the repository, the chat, or GitHub. On the first machine it is in the `.tauri` folder of the user profile. If that key is lost, installed copies cannot move to a newer version. The key file is not committed.
 
@@ -182,7 +182,7 @@ Installed copies still on 0.2.0 install the next version without asking, because
 
 The window label is `main`, decorations are on, the minimum size is 960×640, and the default size is 1100×720.
 
-Capabilities are in `src-tauri/capabilities/default.json`. There is no shell command, no process exit, and no broad filesystem permission. Opener can open only `https://github.com/claireass/desktools`. It cannot reveal a folder or start a local program.
+Capabilities are in `src-tauri/capabilities/default.json`. There is no shell command, no process exit, and no broad filesystem permission. Hiding, showing, focusing, and destroying the window are allowed, as is the default window icon used for the tray. Opener can open only `https://github.com/claireass/desktools`. It cannot reveal a folder or start a local program.
 
 The log level is info. On Windows, logs are under `LocalAppData\com.desktools.desktop\logs`. Passwords, JWTs, and file contents are not written to the log.
 

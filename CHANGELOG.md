@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.1] - 2026-10-03
+
+### Fixed
+
+- Closing the window hides it when the tray icon exists, and closes the app when close-to-tray is off
+
 ## [0.6.0] - 2026-10-02
 
 ### Added
