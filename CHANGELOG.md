@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.2] - 2026-10-03
+
+### Fixed
+
+- Tray Quit exits the app instead of leaving the process running
+
 ## [0.6.1] - 2026-10-03
 
 ### Fixed

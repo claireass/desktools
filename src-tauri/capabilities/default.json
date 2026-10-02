@@ -12,6 +12,7 @@
     "core:window:allow-set-focus",
     "core:window:allow-destroy",
     "core:app:allow-default-window-icon",
+    "core:app:allow-exit",
     {
       "identifier": "opener:allow-open-url",
       "allow": [{ "url": "https://github.com/claireass/desktools" }]

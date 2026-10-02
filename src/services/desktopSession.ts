@@ -94,9 +94,7 @@ async function revealWindow(): Promise<void> {
 }
 
 async function quitFromTray(): Promise<void> {
-  quitting = true;
-  const { getCurrentWindow } = await import("@tauri-apps/api/window");
-  await getCurrentWindow().destroy();
+  await exitApp();
 }
 
 async function windowIcon() {
@@ -108,6 +106,20 @@ async function windowIcon() {
     await logError(`Tray icon image failed: ${detail}`);
     return undefined;
   }
+}
+
+async function exitApp(): Promise<void> {
+  quitting = true;
+  trayReady = false;
+  try {
+    const { TrayIcon } = await import("@tauri-apps/api/tray");
+    await TrayIcon.removeById("desktools");
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "tray remove failed";
+    await logError(`Tray removal failed: ${detail}`);
+  }
+  const { exit } = await import("@tauri-apps/api/app");
+  await exit(0);
 }
 
 async function stopCloseListener(): Promise<void> {
@@ -131,8 +143,7 @@ async function ensureCloseListener(): Promise<void> {
     } catch (error) {
       const detail = error instanceof Error ? error.message : "hide failed";
       await logError(`Hide to tray failed: ${detail}`);
-      quitting = true;
-      await window.destroy();
+      await exitApp();
     }
   });
 }
