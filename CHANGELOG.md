@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.3] - 2026-10-03
+
+### Fixed
+
+- Tray Quit exits the process from the desktop shell while the window is hidden
+
 ## [0.6.2] - 2026-10-03
 
 ### Fixed
