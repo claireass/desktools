@@ -58,6 +58,7 @@ describe("searchTools", () => {
 describe("tool registry", () => {
   it("registers the first offline tools", () => {
     expect(tools.map((tool) => tool.id).sort()).toEqual([
+      "base64",
       "calculator",
       "case-converter",
       "clipboard",

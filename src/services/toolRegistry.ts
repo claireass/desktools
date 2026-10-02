@@ -175,6 +175,15 @@ export const tools: readonly ToolDefinition[] = [
     load: () => import("@/features/line-tools"),
   },
   {
+    id: "base64",
+    nameKey: "tool.base64.name",
+    descriptionKey: "tool.base64.description",
+    category: "developer",
+    icon: "binary",
+    tags: ["base64", "encode", "decode"],
+    load: () => import("@/features/base64"),
+  },
+  {
     id: "uuid-generator",
     nameKey: "tool.uuid.name",
     descriptionKey: "tool.uuid.description",

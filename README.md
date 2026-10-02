@@ -23,7 +23,9 @@ Windows için modern, çevrimdışı çalışabilen ve genişletilebilir bir mas
 
 Yerel kurulum dosyası `npm run tauri build` ile üretilir:
 
-`src-tauri/target/release/bundle/nsis/DeskTools_0.1.0_x64-setup.exe`
+`src-tauri/target/release/bundle/nsis/DeskTools_<sürüm>_x64-setup.exe`
+
+Yayınlanan kurulum [GitHub Releases](https://github.com/claireass/desktools/releases) içindedir.
 
 Kurulum tüm kullanıcılar içindir (`Program Files`), Başlat menüsüne kısayol ekler ve kaldırıcı oluşturur. Yönetici onayı ister. Bu dosya imzalı değildir ve GitHub Release olarak yayımlanmamıştır.
 
