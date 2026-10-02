@@ -1,10 +1,12 @@
 # DeskTools mimarisi ve işleyişi
 
+Aynı metin İngilizce: [ARCHITECTURE.en.md](ARCHITECTURE.en.md)
+
 Bu dosya, projeyi başka bir bilgisayarda açan bir kişi veya yapay zeka içindir. Uygulamanın ne olduğunu, neler yaptığını, katmanların nasıl bağlandığını ve bir değişikliğin nereye yazılacağını anlatır. Kod İngilizcedir. Arayüz metinleri Türkçe ve İngilizcedir.
 
 Güncel davranış bu dosyadadır. `README.md` içindeki bazı kurulum ve sürüm cümleleri eskidir. Çelişki olursa bu dosya ve kaynak kod geçerlidir.
 
-İşleyiş veya mimari değişince bu dosya da aynı değişiklikle güncellenir. Yeni veya kalkan araç, rota, yetki, kayıt dosyası ve artık çalışan ya da duran bir adım buraya yazılır. Yalnızca üslup veya test değişikliği bu dosyayı gerektirmez.
+İşleyiş veya mimari değişince bu dosya ve İngilizce kopyası aynı değişiklikle güncellenir. Yeni veya kalkan araç, rota, yetki, kayıt dosyası ve artık çalışan ya da duran bir adım buraya yazılır. Yalnızca üslup veya test değişikliği bu dosyayı gerektirmez.
 
 ## Ne olduğu
 

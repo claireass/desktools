@@ -5,9 +5,9 @@ alwaysApply: true
 
 # Architecture document
 
-`ARCHITECTURE.md` is the current description of DeskTools for a person or model opening the repo later.
+`ARCHITECTURE.md` (Turkish) and `ARCHITECTURE.en.md` (English) describe how DeskTools works for a person or model opening the repo later.
 
-When a change alters behavior, structure, security boundaries, persistence, updates, tools, or build and release flow, update `ARCHITECTURE.md` in the same change.
+When a change alters behavior, structure, security boundaries, persistence, updates, tools, or build and release flow, update both files in the same change. Keep the facts the same in each language.
 
 Update it for a new or removed tool, a new route, a permission change, a storage file, or a step that now works or stops working. Skip wording, style, and test-only edits that leave the described behavior the same.
 
