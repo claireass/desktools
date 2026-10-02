@@ -2,6 +2,8 @@
 
 Windows için modern, çevrimdışı çalışabilen ve genişletilebilir bir masaüstü araç kutusu.
 
+Mimari, araçlar ve güncelleme akışı [ARCHITECTURE.md](ARCHITECTURE.md) içindedir. Bu dosyadaki bazı kurulum cümleleri eskidir. Güncel işleyiş oradadır.
+
 ## Features
 
 - Daraltılabilir kenar çubuğu ve kategori sayfaları
