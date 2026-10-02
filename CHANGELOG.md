@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0] - 2026-10-02
+
+### Added
+
+- URL encode and decode
+- Unix timestamp and UTC date conversion
+
+### Changed
+
+- JSON formatter can also minify JSON onto one line
+
 ## [0.2.1] - 2026-10-02
 
 ### Changed

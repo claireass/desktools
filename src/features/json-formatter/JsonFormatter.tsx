@@ -40,6 +40,17 @@ export function JsonFormatter() {
           type="button"
           variant="secondary"
           onClick={() => {
+            setCopied(false);
+            setCopyDetail(null);
+            setResult(formatJson(input, 0));
+          }}
+        >
+          {t("tool.jsonFormatter.minify")}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={() => {
             setInput("");
             setResult(null);
             setCopied(false);

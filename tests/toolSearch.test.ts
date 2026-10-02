@@ -80,7 +80,9 @@ describe("tool registry", () => {
       "subnet-calculator",
       "system-info",
       "text-counter",
+      "timestamp",
       "unit-converter",
+      "url-codec",
       "url-parser",
       "uuid-generator",
     ]);

@@ -9,6 +9,13 @@ describe("formatJson", () => {
     });
   });
 
+  it("minifies valid JSON onto one line", () => {
+    expect(formatJson('{\n  "b": 1\n}', 0)).toEqual({
+      ok: true,
+      output: '{"b":1}',
+    });
+  });
+
   it("rejects empty and invalid input", () => {
     expect(formatJson("   ")).toEqual({ ok: false, reason: "empty" });
     const invalid = formatJson("{");
