@@ -238,6 +238,15 @@ export const tools: readonly ToolDefinition[] = [
     load: () => import("@/features/uuid-generator"),
   },
   {
+    id: "password-generator",
+    nameKey: "tool.password.name",
+    descriptionKey: "tool.password.description",
+    category: "developer",
+    icon: "key",
+    tags: ["password", "passphrase", "random", "secret"],
+    load: () => import("@/features/password-generator"),
+  },
+  {
     id: "hash-generator",
     nameKey: "tool.hash.name",
     descriptionKey: "tool.hash.description",

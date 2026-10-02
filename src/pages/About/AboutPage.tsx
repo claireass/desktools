@@ -89,6 +89,13 @@ export function AboutPage() {
 }
 
 async function openRepository(url: string): Promise<void> {
+  const allowed = githubRepositoryUrl(
+    appConfig.repositoryOwner,
+    appConfig.repositoryName,
+  );
+  if (url !== allowed) {
+    throw new Error("repository open refused");
+  }
   if (isTauri()) {
     const { openUrl } = await import("@tauri-apps/plugin-opener");
     await openUrl(url);

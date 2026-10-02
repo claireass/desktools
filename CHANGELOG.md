@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.0] - 2026-10-02
+
+### Added
+
+- Local password generator with an entropy estimate
+
+### Security
+
+- The desktop app can open only the DeskTools GitHub page
+- Regular expression tests stop if they run too long
+- The JWT reader warns when the algorithm is `none` or the signature is empty
+- Downloaded copy names drop path pieces and Windows device names
+
 ## [0.4.0] - 2026-10-02
 
 ### Added

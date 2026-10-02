@@ -74,6 +74,7 @@ describe("tool registry", () => {
       "json-formatter",
       "jwt-decoder",
       "line-tools",
+      "password-generator",
       "pdf-extract",
       "pdf-merge",
       "pdf-split",

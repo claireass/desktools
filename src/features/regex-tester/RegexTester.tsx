@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { fieldClass } from "@/components/tool/ToolIntro";
-import { testRegex, type RegexMatch } from "@/features/regex-tester/logic";
+import { type RegexMatch, type RegexTest } from "@/features/regex-tester/logic";
 import { useI18n } from "@/hooks/useI18n";
 
 const flagOptions = ["g", "i", "m", "s", "u"] as const;
@@ -14,6 +14,7 @@ export function RegexTester() {
   const [matches, setMatches] = useState<RegexMatch[] | null>(null);
   const [truncated, setTruncated] = useState(false);
   const [invalid, setInvalid] = useState(false);
+  const [timedOut, setTimedOut] = useState(false);
 
   function toggleFlag(flag: string) {
     setFlags((current) =>
@@ -58,10 +59,19 @@ export function RegexTester() {
       <Button
         type="button"
         onClick={() => {
-          const result = testRegex(pattern, flags, sample);
-          setInvalid(!result.ok);
-          setMatches(result.ok ? result.matches : null);
-          setTruncated(result.ok && result.truncated);
+          void testInWorker(pattern, flags, sample)
+            .then((result) => {
+              setTimedOut(false);
+              setInvalid(!result.ok);
+              setMatches(result.ok ? result.matches : null);
+              setTruncated(result.ok && result.truncated);
+            })
+            .catch(() => {
+              setTimedOut(true);
+              setInvalid(false);
+              setMatches(null);
+              setTruncated(false);
+            });
         }}
       >
         {t("tool.regex.test")}
@@ -69,6 +79,11 @@ export function RegexTester() {
       {invalid ? (
         <p className="text-sm text-danger" role="alert">
           {t("tool.regex.invalid")}
+        </p>
+      ) : null}
+      {timedOut ? (
+        <p className="text-sm text-danger" role="alert">
+          {t("tool.regex.timeout")}
         </p>
       ) : null}
       {matches?.length === 0 ? <p className="text-sm">{t("tool.regex.empty")}</p> : null}
@@ -94,4 +109,31 @@ export function RegexTester() {
       ) : null}
     </div>
   );
+}
+
+function testInWorker(
+  pattern: string,
+  flags: string,
+  sample: string,
+): Promise<RegexTest> {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL("./regexWorker.ts", import.meta.url), {
+      type: "module",
+    });
+    const timer = window.setTimeout(() => {
+      worker.terminate();
+      reject(new Error("timeout"));
+    }, 1000);
+    worker.onmessage = (event: MessageEvent<RegexTest>) => {
+      window.clearTimeout(timer);
+      worker.terminate();
+      resolve(event.data);
+    };
+    worker.onerror = () => {
+      window.clearTimeout(timer);
+      worker.terminate();
+      reject(new Error("worker"));
+    };
+    worker.postMessage({ pattern, flags, sample });
+  });
 }

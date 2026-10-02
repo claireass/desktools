@@ -13,6 +13,7 @@ import { useImageOutput } from "@/features/image-shared/useImageOutput";
 import { useImageSource } from "@/features/image-shared/useImageSource";
 import { useI18n } from "@/hooks/useI18n";
 import { formatBytes } from "@/utils/formatBytes";
+import { safeDownloadName } from "@/utils/safeDownloadName";
 
 export function ImageResizer() {
   const { t } = useI18n();
@@ -213,6 +214,6 @@ function formatFor(type: string): ImageFormat {
 function downloadOutput(url: string, name: string) {
   const link = document.createElement("a");
   link.href = url;
-  link.download = name;
+  link.download = safeDownloadName(name, "image");
   link.click();
 }

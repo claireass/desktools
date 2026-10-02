@@ -38,6 +38,11 @@ export function JwtDecoder() {
       ) : null}
       {view ? (
         <>
+          {view.unsafeAlgorithm ? (
+            <p className="text-sm text-danger" role="alert">
+              {t("tool.jwt.unsafe")}
+            </p>
+          ) : null}
           <Claim label={t("tool.jwt.exp")} value={view.claims.exp} />
           <Claim label={t("tool.jwt.nbf")} value={view.claims.nbf} />
           <Claim label={t("tool.jwt.iat")} value={view.claims.iat} />

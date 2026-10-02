@@ -1,5 +1,7 @@
 const allowedFlags = new Set(["g", "i", "m", "s", "u"]);
 const matchLimit = 50;
+const maxPatternLength = 200;
+const maxSampleLength = 10_000;
 
 export type RegexMatch = {
   index: number;
@@ -11,7 +13,12 @@ export type RegexTest =
   { ok: true; matches: RegexMatch[]; truncated: boolean } | { ok: false };
 
 export function testRegex(pattern: string, flags: string, sample: string): RegexTest {
-  if (pattern.length === 0 || !isFlagList(flags)) {
+  if (
+    pattern.length === 0 ||
+    pattern.length > maxPatternLength ||
+    sample.length > maxSampleLength ||
+    !isFlagList(flags)
+  ) {
     return { ok: false };
   }
   const global = flags.includes("g");

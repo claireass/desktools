@@ -16,9 +16,10 @@ describe("regex tester", () => {
     expect(result.ok && result.matches.map((match) => match.text)).toEqual(["aa"]);
   });
 
-  it("rejects an empty pattern, a broken pattern, and repeated flags", () => {
+  it("rejects an empty pattern, a broken pattern, repeated flags, and a huge sample", () => {
     expect(testRegex("", "g", "a").ok).toBe(false);
     expect(testRegex("[", "g", "a").ok).toBe(false);
     expect(testRegex("a", "gg", "a").ok).toBe(false);
+    expect(testRegex("a", "g", "a".repeat(10_001)).ok).toBe(false);
   });
 });

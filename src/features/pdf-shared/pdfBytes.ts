@@ -1,4 +1,5 @@
 import { PDFDocument } from "pdf-lib";
+import { safeDownloadName } from "@/utils/safeDownloadName";
 
 export class PdfReadError extends Error {
   constructor() {
@@ -83,7 +84,7 @@ export function downloadPdf(bytes: Uint8Array, name: string) {
   const url = URL.createObjectURL(new Blob([copy], { type: "application/pdf" }));
   const link = document.createElement("a");
   link.href = url;
-  link.download = name;
+  link.download = safeDownloadName(name, "document.pdf");
   link.click();
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

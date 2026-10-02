@@ -7,6 +7,7 @@ import type { RenameProblem } from "@/features/file-renamer/types";
 import { useI18n } from "@/hooks/useI18n";
 import type { MessageKey } from "@/i18n/messages";
 import { copyText } from "@/utils/copyText";
+import { safeDownloadName } from "@/utils/safeDownloadName";
 
 const problemKeys: Record<RenameProblem, MessageKey> = {
   empty: "tool.fileRenamer.problem.empty",
@@ -26,7 +27,11 @@ export function FileRenamer() {
   const [copied, setCopied] = useState(false);
   const [copyDetail, setCopyDetail] = useState<string | null>(null);
   const rows = useMemo(
-    () => previewRename(files.map((file) => file.name), { template, start, pad }),
+    () =>
+      previewRename(
+        files.map((file) => file.name),
+        { template, start, pad },
+      ),
     [files, pad, start, template],
   );
   const ready = rows.filter((row) => row.problem === null);
@@ -85,7 +90,9 @@ export function FileRenamer() {
           {rows.map((row, index) => (
             <li key={`${index}-${row.original}`} className="grid gap-1 px-3 py-2 text-sm">
               <span className="break-all text-muted">{row.original}</span>
-              <span className="break-all font-medium">{row.next === "" ? "—" : row.next}</span>
+              <span className="break-all font-medium">
+                {row.next === "" ? "—" : row.next}
+              </span>
               {row.problem ? (
                 <span className="text-danger" role="alert">
                   {t(problemKeys[row.problem])}
@@ -154,7 +161,7 @@ function downloadCopy(file: File, name: string) {
   const url = URL.createObjectURL(file);
   const link = document.createElement("a");
   link.href = url;
-  link.download = name;
+  link.download = safeDownloadName(name);
   link.click();
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

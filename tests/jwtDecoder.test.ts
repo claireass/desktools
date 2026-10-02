@@ -13,6 +13,7 @@ describe("jwt decoder", () => {
       header: '{\n  "alg": "none",\n  "typ": "JWT"\n}',
       payload: '{\n  "sub": "desk",\n  "exp": 0\n}',
       signature: "sig",
+      unsafeAlgorithm: true,
       claims: {
         exp: "1970-01-01T00:00:00.000Z",
         nbf: null,

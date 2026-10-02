@@ -1,7 +1,10 @@
+const maxTokenLength = 8192;
+
 export type JwtView = {
   header: string;
   payload: string;
   signature: string;
+  unsafeAlgorithm: boolean;
   claims: {
     exp: string | null;
     nbf: string | null;
@@ -10,7 +13,11 @@ export type JwtView = {
 };
 
 export function decodeJwt(token: string): JwtView | null {
-  const parts = token.trim().split(".");
+  const trimmed = token.trim();
+  if (trimmed.length === 0 || trimmed.length > maxTokenLength) {
+    return null;
+  }
+  const parts = trimmed.split(".");
   if (parts.length !== 3 || parts.some((part) => part === undefined)) {
     return null;
   }
@@ -27,6 +34,7 @@ export function decodeJwt(token: string): JwtView | null {
     header: JSON.stringify(header, null, 2),
     payload: JSON.stringify(payload, null, 2),
     signature,
+    unsafeAlgorithm: isUnsafeAlgorithm(header["alg"]) || signature.length === 0,
     claims: {
       exp: claimTime(payload["exp"]),
       nbf: claimTime(payload["nbf"]),
@@ -64,6 +72,10 @@ function decodeBase64Url(segment: string): string | null {
   } catch {
     return null;
   }
+}
+
+function isUnsafeAlgorithm(value: unknown): boolean {
+  return typeof value !== "string" || value.trim().toLowerCase() === "none";
 }
 
 function claimTime(value: unknown): string | null {
