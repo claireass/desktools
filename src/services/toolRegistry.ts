@@ -1,0 +1,239 @@
+import type { ComponentType } from "react";
+import type { ToolCategory } from "@/types/tool";
+
+export type ToolDefinition = {
+  id: string;
+  nameKey: string;
+  descriptionKey: string;
+  category: ToolCategory;
+  icon: string;
+  tags: string[];
+  load: () => Promise<{ default: ComponentType }>;
+};
+
+export const tools: readonly ToolDefinition[] = [
+  {
+    id: "file-info",
+    nameKey: "tool.fileInfo.name",
+    descriptionKey: "tool.fileInfo.description",
+    category: "file",
+    icon: "file",
+    tags: ["file", "info", "size", "extension"],
+    load: () => import("@/features/file-info"),
+  },
+  {
+    id: "size-analyzer",
+    nameKey: "tool.sizeAnalyzer.name",
+    descriptionKey: "tool.sizeAnalyzer.description",
+    category: "file",
+    icon: "chart",
+    tags: ["file", "size", "bytes", "largest"],
+    load: () => import("@/features/size-analyzer"),
+  },
+  {
+    id: "file-renamer",
+    nameKey: "tool.fileRenamer.name",
+    descriptionKey: "tool.fileRenamer.description",
+    category: "file",
+    icon: "pencil",
+    tags: ["file", "rename", "batch"],
+    load: () => import("@/features/file-renamer"),
+  },
+  {
+    id: "image-converter",
+    nameKey: "tool.imageConvert.name",
+    descriptionKey: "tool.imageConvert.description",
+    category: "image",
+    icon: "image",
+    tags: ["image", "convert", "png", "jpeg", "webp"],
+    load: () => import("@/features/image-converter"),
+  },
+  {
+    id: "image-resizer",
+    nameKey: "tool.imageResize.name",
+    descriptionKey: "tool.imageResize.description",
+    category: "image",
+    icon: "scaling",
+    tags: ["image", "resize", "width", "height"],
+    load: () => import("@/features/image-resizer"),
+  },
+  {
+    id: "image-compressor",
+    nameKey: "tool.imageCompress.name",
+    descriptionKey: "tool.imageCompress.description",
+    category: "image",
+    icon: "minimize",
+    tags: ["image", "compress", "quality", "jpeg", "webp"],
+    load: () => import("@/features/image-compressor"),
+  },
+  {
+    id: "pdf-merge",
+    nameKey: "tool.pdfMerge.name",
+    descriptionKey: "tool.pdfMerge.description",
+    category: "pdf",
+    icon: "files",
+    tags: ["pdf", "merge", "combine"],
+    load: () => import("@/features/pdf-merge"),
+  },
+  {
+    id: "pdf-split",
+    nameKey: "tool.pdfSplit.name",
+    descriptionKey: "tool.pdfSplit.description",
+    category: "pdf",
+    icon: "scissors",
+    tags: ["pdf", "split", "pages"],
+    load: () => import("@/features/pdf-split"),
+  },
+  {
+    id: "pdf-extract",
+    nameKey: "tool.pdfExtract.name",
+    descriptionKey: "tool.pdfExtract.description",
+    category: "pdf",
+    icon: "file-output",
+    tags: ["pdf", "extract", "pages"],
+    load: () => import("@/features/pdf-extract"),
+  },
+  {
+    id: "url-parser",
+    nameKey: "tool.urlParser.name",
+    descriptionKey: "tool.urlParser.description",
+    category: "internet",
+    icon: "link",
+    tags: ["url", "uri", "query", "host"],
+    load: () => import("@/features/url-parser"),
+  },
+  {
+    id: "subnet-calculator",
+    nameKey: "tool.subnet.name",
+    descriptionKey: "tool.subnet.description",
+    category: "internet",
+    icon: "network",
+    tags: ["ip", "cidr", "subnet", "ipv4"],
+    load: () => import("@/features/subnet-calculator"),
+  },
+  {
+    id: "http-status",
+    nameKey: "tool.httpStatus.name",
+    descriptionKey: "tool.httpStatus.description",
+    category: "internet",
+    icon: "globe",
+    tags: ["http", "status", "404", "500"],
+    load: () => import("@/features/http-status"),
+  },
+  {
+    id: "clipboard",
+    nameKey: "tool.clipboard.name",
+    descriptionKey: "tool.clipboard.description",
+    category: "system",
+    icon: "clipboard",
+    tags: ["clipboard", "paste", "copy"],
+    load: () => import("@/features/clipboard"),
+  },
+  {
+    id: "system-info",
+    nameKey: "tool.systemInfo.name",
+    descriptionKey: "tool.systemInfo.description",
+    category: "system",
+    icon: "monitor",
+    tags: ["system", "screen", "language", "platform"],
+    load: () => import("@/features/system-info"),
+  },
+  {
+    id: "json-formatter",
+    nameKey: "tool.jsonFormatter.name",
+    descriptionKey: "tool.jsonFormatter.description",
+    category: "developer",
+    icon: "braces",
+    tags: ["json", "format", "pretty"],
+    load: () => import("@/features/json-formatter"),
+  },
+  {
+    id: "text-counter",
+    nameKey: "tool.textCounter.name",
+    descriptionKey: "tool.textCounter.description",
+    category: "text",
+    icon: "type",
+    tags: ["text", "count", "words", "characters"],
+    load: () => import("@/features/text-counter"),
+  },
+  {
+    id: "case-converter",
+    nameKey: "tool.caseConverter.name",
+    descriptionKey: "tool.caseConverter.description",
+    category: "text",
+    icon: "case",
+    tags: ["text", "case", "upper", "lower", "title"],
+    load: () => import("@/features/case-converter"),
+  },
+  {
+    id: "line-tools",
+    nameKey: "tool.lineTools.name",
+    descriptionKey: "tool.lineTools.description",
+    category: "text",
+    icon: "list",
+    tags: ["text", "lines", "sort", "unique"],
+    load: () => import("@/features/line-tools"),
+  },
+  {
+    id: "uuid-generator",
+    nameKey: "tool.uuid.name",
+    descriptionKey: "tool.uuid.description",
+    category: "developer",
+    icon: "fingerprint",
+    tags: ["uuid", "guid", "id"],
+    load: () => import("@/features/uuid-generator"),
+  },
+  {
+    id: "hash-generator",
+    nameKey: "tool.hash.name",
+    descriptionKey: "tool.hash.description",
+    category: "developer",
+    icon: "hash",
+    tags: ["hash", "md5", "sha1", "sha256", "sha512"],
+    load: () => import("@/features/hash-generator"),
+  },
+  {
+    id: "calculator",
+    nameKey: "tool.calculator.name",
+    descriptionKey: "tool.calculator.description",
+    category: "calculator",
+    icon: "calculator",
+    tags: ["math", "calculate", "add", "divide"],
+    load: () => import("@/features/calculator"),
+  },
+  {
+    id: "percentage",
+    nameKey: "tool.percentage.name",
+    descriptionKey: "tool.percentage.description",
+    category: "calculator",
+    icon: "percent",
+    tags: ["percent", "ratio", "change"],
+    load: () => import("@/features/percentage"),
+  },
+  {
+    id: "unit-converter",
+    nameKey: "tool.unitConverter.name",
+    descriptionKey: "tool.unitConverter.description",
+    category: "calculator",
+    icon: "ruler",
+    tags: ["unit", "length", "mass", "temperature"],
+    load: () => import("@/features/unit-converter"),
+  },
+  {
+    id: "date-calculator",
+    nameKey: "tool.dateCalculator.name",
+    descriptionKey: "tool.dateCalculator.description",
+    category: "calculator",
+    icon: "calendar",
+    tags: ["date", "days", "calendar"],
+    load: () => import("@/features/date-calculator"),
+  },
+];
+
+export function getToolById(id: string): ToolDefinition | undefined {
+  return tools.find((tool) => tool.id === id);
+}
+
+export function getToolsByCategory(category: ToolCategory): ToolDefinition[] {
+  return tools.filter((tool) => tool.category === category);
+}
